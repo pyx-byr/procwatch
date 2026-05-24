@@ -47,6 +47,7 @@ procwatch --name nginx --cpu 70 --mem 256 --interval 5
 | `--mem` | Memory alert threshold (MB) | `1024` |
 | `--interval` | Poll interval in seconds | `10` |
 | `--log` | Log output file path | stdout |
+| `--exit-on-alert` | Stop watching after the first alert is triggered | `false` |
 
 ---
 
