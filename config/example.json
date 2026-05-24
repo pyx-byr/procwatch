@@ -1,0 +1,24 @@
+{
+  "poll_interval_seconds": 5,
+  "log_level": "info",
+  "log_format": "json",
+  "processes": [
+    {
+      "name": "nginx",
+      "pid_file": "/var/run/nginx.pid",
+      "cpu_threshold_percent": 80.0,
+      "mem_threshold_mb": 512
+    },
+    {
+      "name": "postgres",
+      "pid_file": "/var/run/postgresql/postgres.pid",
+      "cpu_threshold_percent": 90.0,
+      "mem_threshold_mb": 2048
+    },
+    {
+      "name": "myapp",
+      "cpu_threshold_percent": 70.0,
+      "mem_threshold_mb": 256
+    }
+  ]
+}
