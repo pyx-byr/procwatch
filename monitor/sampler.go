@@ -69,3 +69,15 @@ func (s *Sampler) Collect(pid int, name string) (Sample, error) {
 		Timestamp: time.Now(),
 	}, nil
 }
+
+// CPUPercent computes the CPU usage percentage between two consecutive samples
+// over the elapsed wall-clock time, scaled to a single CPU core (0–100).
+// It returns 0 if the elapsed duration is zero to avoid division by zero.
+func CPUPercent(prev, curr Sample, ticksPerSecond float64) float64 {
+	elapsed := curr.Timestamp.Sub(prev.Timestamp).Seconds()
+	if elapsed <= 0 {
+		return 0
+	}
+	deltaTicks := curr.CPUPct - prev.CPUPct
+	return (deltaTicks / ticksPerSecond) / elapsed * 100.0
+}
