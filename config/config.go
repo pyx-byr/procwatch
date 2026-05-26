@@ -41,19 +41,24 @@ func Load(path string) (*Config, error) {
 		return nil, fmt.Errorf("invalid config: %w", err)
 	}
 
-	if cfg.PollIntervalSec <= 0 {
-		cfg.PollIntervalSec = 5
-	}
-	cfg.PollInterval = time.Duration(cfg.PollIntervalSec) * time.Second
-
-	if cfg.LogFormat == "" {
-		cfg.LogFormat = "json"
-	}
-	if cfg.LogLevel == "" {
-		cfg.LogLevel = "info"
-	}
+	cfg.applyDefaults()
 
 	return &cfg, nil
+}
+
+// applyDefaults fills in any unset fields with sensible default values.
+func (c *Config) applyDefaults() {
+	if c.PollIntervalSec <= 0 {
+		c.PollIntervalSec = 5
+	}
+	c.PollInterval = time.Duration(c.PollIntervalSec) * time.Second
+
+	if c.LogFormat == "" {
+		c.LogFormat = "json"
+	}
+	if c.LogLevel == "" {
+		c.LogLevel = "info"
+	}
 }
 
 func (c *Config) validate() error {
